@@ -2,7 +2,6 @@
 
 import logging
 from typing import List, Optional
-from mysql.connector import Error
 
 from database.conexion import Conexion
 from modelos.cliente import Cliente
@@ -37,7 +36,7 @@ class ClienteDAO:
                     cursor.execute(sql, valores)
                     cliente.id_cliente = cursor.lastrowid
                     return cliente.id_cliente
-        except (Error, ConnectionError, Exception) as e:
+        except Exception as e:
             logger.error("Error al crear cliente: %s", e)
             return None
 
@@ -71,7 +70,7 @@ class ClienteDAO:
                             fecha_registro=fila["fecha_registro"],
                         )
                     return None
-        except (Error, ConnectionError, Exception) as e:
+        except Exception as e:
             logger.error("Error al obtener cliente por ID (%s): %s", id_cliente, e)
             return None
 
@@ -105,7 +104,7 @@ class ClienteDAO:
                             fecha_registro=fila["fecha_registro"],
                         )
                     return None
-        except (Error, ConnectionError, Exception) as e:
+        except Exception as e:
             logger.error("Error al obtener cliente por teléfono (%s): %s", telefono, e)
             return None
 
@@ -139,7 +138,7 @@ class ClienteDAO:
                             )
                         )
             return clientes
-        except (Error, ConnectionError, Exception) as e:
+        except Exception as e:
             logger.error("Error al listar clientes: %s", e)
             return []
 
@@ -175,7 +174,7 @@ class ClienteDAO:
                 with conexion.cursor() as cursor:
                     cursor.execute(sql, valores)
                     return cursor.rowcount > 0
-        except (Error, ConnectionError, Exception) as e:
+        except Exception as e:
             logger.error("Error al actualizar cliente (%s): %s", cliente.id_cliente, e)
             return False
 
@@ -199,6 +198,6 @@ class ClienteDAO:
                 with conexion.cursor() as cursor:
                     cursor.execute(sql, (id_cliente,))
                     return cursor.rowcount > 0
-        except (Error, ConnectionError, Exception) as e:
+        except Exception as e:
             logger.error("Error al eliminar lógicamente el cliente (%s): %s", id_cliente, e)
             return False

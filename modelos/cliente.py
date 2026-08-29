@@ -58,4 +58,4 @@ class Cliente:
             f"Cliente(id_cliente={self.id_cliente}, nombre='{self.nombre}', "
             f"telefono='{self.telefono}', email='{self.email}', "
             f"estado='{self.estado}', fecha_registro={self.fecha_registro})"
-        )
+        )
